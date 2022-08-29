@@ -6,7 +6,7 @@ import ancients from './ancients.js'
 
 
 
-// alert(`Привет!:) колода работает только для первого древнего Азатота и для среднего уровня сложности. Чтоб посмотреть карты нажми на 'замешать карты' и потом на рубашку колоды. Набор карт можно посмотреть в консоли`)
+alert(`Привет!:) колода работает только для первого древнего Азатота и для среднего уровня сложности. Чтоб посмотреть карты нажми на 'замешать карты' и потом на рубашку колоды. Набор карт можно посмотреть в консоли`)
 const ancientsList = document.querySelector('.ancients-wrapper');
 
 const difficulty = document.querySelector('.difficulty-wrapper');
@@ -14,7 +14,7 @@ const cardsShuffle = document.querySelector('.cards-shuffle');
 
 let selectedElement;
 let ancient = 'azathoth';
-console.log(ancient);
+//console.log(ancient);
 
 
 function highlight(element, classname) {
@@ -40,7 +40,7 @@ ancientsList.addEventListener('click', function(event) {
     highlight(target, 'active-ancient');
 });
 
-console.log(ancient);
+//console.log(ancient);
 
 //ищем id активного элемента по клику
 
@@ -51,12 +51,10 @@ function getRandom(min, max) {
 
 
 
-let firstStageSet = [];
-let secondStageSet = [];
-let thirdStageSet = [];
-
 
 let deck;
+
+
 cardsShuffle.addEventListener('click', function() {
     setDeck(ancient);
     mythCardFace.classList.remove('myth-card-open');
@@ -65,13 +63,15 @@ cardsShuffle.addEventListener('click', function() {
 
 function setDeck (ancient) {
     let blueCardsSet = blueCardsData;
-    console.log('chfdytybt', blueCardsSet, blueCardsData);
     let greenCardsSet = greenCardsData;
     let brownCardsSet = brownCardsData;
+    let firstStageSet = [];
+    let secondStageSet = [];
+    let thirdStageSet = [];
 
     deck = [];
 
-    console.log(blueCardsSet, greenCardsSet, brownCardsSet);
+    console.log('сеты карт, из которых состаяляются колоды\n', blueCardsSet, greenCardsSet, brownCardsSet);
 
 
     //firstStageSet
@@ -154,11 +154,6 @@ function setDeck (ancient) {
     deck = [...thirdStageSet, ...secondStageSet, ...firstStageSet] // собираем в обратном порядке, чтоб использовать pop для выкладки карт
     console.log('итоговая колода:\n', deck)
 
-    firstStageSet = [];
-    secondStageSet = [];
-    thirdStageSet = [];
-
-
     return deck;
 }
 
@@ -168,6 +163,7 @@ const mythCardFace = document.querySelector('.myth-cards-face');
 mythCardsDeck.addEventListener('click', function() {
     mythCardFace.classList.add('myth-card-open');
     let card = deck.pop();
+    console.log(card);
     let imgLink = `./assets/MythicCards/${card.color}/${card.id}.png`
     document.getElementById('card-face').src = imgLink;
     if (deck.length == 0) {
