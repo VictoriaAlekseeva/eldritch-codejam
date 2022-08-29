@@ -5,7 +5,7 @@ import ancientsData from './ancients-cards.js'
 import ancients from './ancients.js'
 
 
-alert(`Привет!:) колода работает только для первого древнего Азатота и для среднего уровня сложности. Чтоб посмотреть карты нажми на 'замешать карты' и потом на рубашку колоды. Набор карт можно посмотреть в консоли`)
+// alert(`Привет!:) колода работает только для первого древнего Азатота и для среднего уровня сложности. Чтоб посмотреть карты нажми на 'замешать карты' и потом на рубашку колоды. Набор карт можно посмотреть в консоли`)
 const ancientsList = document.querySelector('.ancients-wrapper');
 
 const difficulty = document.querySelector('.difficulty-wrapper');
@@ -55,7 +55,11 @@ let secondStageSet = [];
 let thirdStageSet = [];
 
 let deck;
-cardsShuffle.addEventListener('click', function() {setDeck(ancient)});
+cardsShuffle.addEventListener('click', function() {
+    setDeck(ancient);
+    mythCardFace.classList.remove('myth-card-open');
+
+});
 
 function setDeck (ancient, level) {
     deck = [];
@@ -150,7 +154,9 @@ mythCardsDeck.addEventListener('click', function() {
     let card = deck.pop();
     let imgLink = `./assets/MythicCards/${card.color}/${card.id}.png`
     document.getElementById('card-face').src = imgLink;
-
+    if (deck.length == 0) {
+        mythCardFace.classList.remove('myth-card-open');
+    }
 });
 
 
