@@ -34,12 +34,12 @@ body {
     padding: 20px;
 }
 
-.ancient-card, .myth-cards-deck {
+.ancient-card, .myth-cards-deck, .myth-cards-face {
     width: calc(25% - 10px);
     display: block;
 }
 
-.ancient-card.active {
+.ancient-card.active-ancient {
     border: 2px solid var(--border-color-active);
 }
 
@@ -61,7 +61,7 @@ body {
     width: calc(20% - 16px);
 }
 
-.difficulty.active {
+.difficulty.active-difficulty {
     border-color: var(--border-color-active);
 }
 
@@ -77,12 +77,11 @@ body {
 }
 
 .stages-wrapper {
-
     width: 10%;
     padding: 10px;
     float: left;
-
 }
+
 .stages-list {
     color: var(--text-color);
     list-style: none;
@@ -119,11 +118,19 @@ body {
 
 .myth-cards {
     display: inline-flex;
-    width: 70%;
+    width: 80%;
     justify-content: center;
     padding: 10px;
+    gap: 10px;
 
 }
 
+.myth-cards-face {
+    display: none;
+}
+
+.myth-cards-face.myth-card-open {
+    display: block;
+}
 
 
