@@ -5,6 +5,7 @@ import ancientsData from './ancients-cards.js'
 import ancients from './ancients.js'
 
 
+
 // alert(`Привет!:) колода работает только для первого древнего Азатота и для среднего уровня сложности. Чтоб посмотреть карты нажми на 'замешать карты' и потом на рубашку колоды. Набор карт можно посмотреть в консоли`)
 const ancientsList = document.querySelector('.ancients-wrapper');
 
@@ -54,6 +55,7 @@ let firstStageSet = [];
 let secondStageSet = [];
 let thirdStageSet = [];
 
+
 let deck;
 cardsShuffle.addEventListener('click', function() {
     setDeck(ancient);
@@ -61,12 +63,17 @@ cardsShuffle.addEventListener('click', function() {
 
 });
 
-function setDeck (ancient, level) {
-    deck = [];
-
+function setDeck (ancient) {
     let blueCardsSet = blueCardsData;
+    console.log('chfdytybt', blueCardsSet, blueCardsData);
     let greenCardsSet = greenCardsData;
     let brownCardsSet = brownCardsData;
+
+    deck = [];
+
+    console.log(blueCardsSet, greenCardsSet, brownCardsSet);
+
+
     //firstStageSet
     let firstStageSetRule = ancientsData.find(a => a.name == ancient).firstStage; //a = имя древнего, ищем где в массиве древний и подбираем количесвто карт
     let secondStageSetRule = ancientsData.find(a => a.name == ancient).secondStage; //a = имя древнего, ищем где в массиве древний и подбираем количесвто карт
@@ -77,77 +84,86 @@ function setDeck (ancient, level) {
     for (let i = 0; i < firstStageSetRule.greenCards; i++) {
         let green = getRandom(0, greenCardsSet.length);
         firstStageSet.push(greenCardsSet[green]);
-        greenCardsSet.splice(green, 1);
+
+        greenCardsSet = greenCardsSet.filter(e => e !== greenCardsSet[green])
+        //greenCardsSet.splice(green, 1);
     }
 
     for (let i = 0; i < firstStageSetRule.blueCards; i++) {
         let blue = getRandom(0, blueCardsSet.length);
         firstStageSet.push(blueCardsSet[blue]);
-        blueCardsSet.splice(blue, 1);
+        blueCardsSet = blueCardsSet.filter(e => e !== blueCardsSet[blue]);
+        //blueCardsSet.splice(blue, 1);
     }
     for (let i = 0; i < firstStageSetRule.brownCards; i++) {
         let brown = getRandom(0, brownCardsSet.length);
-        firstStageSet.push(brownCardsData[brown]);
-        brownCardsSet.splice(brown, 1);
+        firstStageSet.push(brownCardsSet[brown]);
+        brownCardsSet = brownCardsSet.filter(e => e !== brownCardsSet[brown]);
+
+        //brownCardsSet.splice(brown, 1);
     }
 
     // собираем набор второго этапа
     for (let i = 0; i < secondStageSetRule.greenCards; i++) {
         let green = getRandom(0, greenCardsSet.length);
-        secondStageSet.push(greenCardsData[green]);
-        greenCardsSet.splice(green, 1);
+        secondStageSet.push(greenCardsSet[green]);
+        greenCardsSet = greenCardsSet.filter(e => e !== greenCardsSet[green])
+        //greenCardsSet.splice(green, 1);
 
     }
 
     for (let i = 0; i < secondStageSetRule.blueCards; i++) {
         let blue = getRandom(0, blueCardsSet.length);
         secondStageSet.push(blueCardsSet[blue]);
-        blueCardsSet.splice(blue, 1);
+        blueCardsSet = blueCardsSet.filter(e => e !== blueCardsSet[blue]);
+        //blueCardsSet.splice(blue, 1);
 
     }
     for (let i = 0; i < secondStageSetRule.brownCards; i++) {
         let brown = getRandom(0, brownCardsSet.length);
-        secondStageSet.push(brownCardsData[brown]);
-        brownCardsSet.splice(brown, 1);
+        secondStageSet.push(brownCardsSet[brown]);
+        brownCardsSet = brownCardsSet.filter(e => e !== brownCardsSet[brown]);
+        //brownCardsSet.splice(brown, 1);
     }
 
     // собираем набор третьего этапа
 
     for (let i = 0; i < thirdStageSetRule.greenCards; i++) {
         let green = getRandom(0, greenCardsSet.length);
-        thirdStageSet.push(greenCardsData[green]);
-        greenCardsSet.splice(green, 1);
+        thirdStageSet.push(greenCardsSet[green]);
+        greenCardsSet = greenCardsSet.filter(e => e !== greenCardsSet[green])
+        //greenCardsSet.splice(green, 1);
 
     }
 
     for (let i = 0; i < thirdStageSetRule.blueCards; i++) {
         let blue = getRandom(0, blueCardsSet.length);
         thirdStageSet.push(blueCardsSet[blue]);
-        blueCardsSet.splice(blue, 1);
+        blueCardsSet = blueCardsSet.filter(e => e !== blueCardsSet[blue]);
+        //blueCardsSet.splice(blue, 1);
     }
     for (let i = 0; i < thirdStageSetRule.brownCards; i++) {
         let brown = getRandom(0, brownCardsSet.length);
-        thirdStageSet.push(brownCardsData[brown]);
-        brownCardsSet.splice(brown, 1);
+        thirdStageSet.push(brownCardsSet[brown]);
+        brownCardsSet = brownCardsSet.filter(e => e !== brownCardsSet[brown]);
+        //brownCardsSet.splice(brown, 1);
     }
 
     console.log('наборы карт по этапам:\n', firstStageSet, secondStageSet, thirdStageSet);
 
     deck = [...thirdStageSet, ...secondStageSet, ...firstStageSet] // собираем в обратном порядке, чтоб использовать pop для выкладки карт
-console.log('итоговая колода:\n', deck)
+    console.log('итоговая колода:\n', deck)
 
     firstStageSet = [];
     secondStageSet = [];
     thirdStageSet = [];
 
+
     return deck;
 }
 
-
-
 const mythCardsDeck = document.querySelector('.myth-cards-deck');
 const mythCardFace = document.querySelector('.myth-cards-face');
-
 
 mythCardsDeck.addEventListener('click', function() {
     mythCardFace.classList.add('myth-card-open');
