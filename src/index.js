@@ -5,7 +5,7 @@ import ancientsData from './ancients-cards.js'
 import ancients from './ancients.js'
 
 
-alert(`Привет!) колода работает только для первого древнего Азатота и для среднего уровня сложности. Чтоб посмотреть карты нажми на рубашку колоды`)
+alert(`Привет!:) колода работает только для первого древнего Азатота и для среднего уровня сложности. Чтоб посмотреть карты нажми на 'замешать карты' и потом на рубашку колоды. Набор карт можно посмотреть в консоли`)
 const ancientsList = document.querySelector('.ancients-wrapper');
 
 const difficulty = document.querySelector('.difficulty-wrapper');
@@ -55,8 +55,10 @@ let secondStageSet = [];
 let thirdStageSet = [];
 
 let deck;
+cardsShuffle.addEventListener('click', function() {setDeck(ancient)});
 
 function setDeck (ancient) {
+    deck = [];
     //firstStageSet
     let firstStageSetRule = ancientsData.find(a => a.name == ancient).firstStage; //a = имя древнего, ищем где в массиве древний и подбираем количесвто карт
     let secondStageSetRule = ancientsData.find(a => a.name == ancient).secondStage; //a = имя древнего, ищем где в массиве древний и подбираем количесвто карт
@@ -105,10 +107,14 @@ function setDeck (ancient) {
     deck = [...thirdStageSet, ...secondStageSet, ...firstStageSet] // собираем в обратном порядке, чтоб использовать pop для выкладки карт
 console.log('итоговая колода:\n', deck)
 
+    firstStageSet = [];
+    secondStageSet = [];
+    thirdStageSet = [];
+
     return deck;
 }
 
-cardsShuffle.addEventListener('click', setDeck(ancient));
+
 
 const mythCardsDeck = document.querySelector('.myth-cards-deck');
 const mythCardFace = document.querySelector('.myth-cards-face');
