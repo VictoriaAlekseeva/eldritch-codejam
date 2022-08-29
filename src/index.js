@@ -4,6 +4,8 @@ import brownCardsData from './brown-cards.js';
 import ancientsData from './ancients-cards.js'
 import ancients from './ancients.js'
 
+
+alert(`Привет!) колода работает только для первого древнего Азатота и для среднего уровня сложности. Чтоб посмотреть карты нажми на рубашку колоды`)
 const ancientsList = document.querySelector('.ancients-wrapper');
 
 const difficulty = document.querySelector('.difficulty-wrapper');
@@ -117,6 +119,7 @@ mythCardsDeck.addEventListener('click', function() {
     let card = deck.pop();
     let imgLink = `./assets/MythicCards/${card.color}/${card.id}.png`
     document.getElementById('card-face').src = imgLink;
+
 });
 
 
