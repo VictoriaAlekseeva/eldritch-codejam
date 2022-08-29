@@ -57,8 +57,12 @@ let thirdStageSet = [];
 let deck;
 cardsShuffle.addEventListener('click', function() {setDeck(ancient)});
 
-function setDeck (ancient) {
+function setDeck (ancient, level) {
     deck = [];
+
+    let blueCardsSet = blueCardsData;
+    let greenCardsSet = greenCardsData;
+    let brownCardsSet = brownCardsData;
     //firstStageSet
     let firstStageSetRule = ancientsData.find(a => a.name == ancient).firstStage; //a = имя древнего, ищем где в массиве древний и подбираем количесвто карт
     let secondStageSetRule = ancientsData.find(a => a.name == ancient).secondStage; //a = имя древнего, ищем где в массиве древний и подбираем количесвто карт
@@ -67,39 +71,60 @@ function setDeck (ancient) {
 
     //собираем набор первого этапа
     for (let i = 0; i < firstStageSetRule.greenCards; i++) {
-        firstStageSet.push(greenCardsData[getRandom(0, greenCardsData.length)]);
+        let green = getRandom(0, greenCardsSet.length);
+        firstStageSet.push(greenCardsSet[green]);
+        greenCardsSet.splice(green, 1);
     }
 
     for (let i = 0; i < firstStageSetRule.blueCards; i++) {
-        firstStageSet.push(blueCardsData[getRandom(0, blueCardsData.length)]);
+        let blue = getRandom(0, blueCardsSet.length);
+        firstStageSet.push(blueCardsSet[blue]);
+        blueCardsSet.splice(blue, 1);
     }
     for (let i = 0; i < firstStageSetRule.brownCards; i++) {
-        firstStageSet.push(brownCardsData[getRandom(0, brownCardsData.length)]);
+        let brown = getRandom(0, brownCardsSet.length);
+        firstStageSet.push(brownCardsData[brown]);
+        brownCardsSet.splice(brown, 1);
     }
 
     // собираем набор второго этапа
     for (let i = 0; i < secondStageSetRule.greenCards; i++) {
-        secondStageSet.push(greenCardsData[getRandom(0, greenCardsData.length)]);
+        let green = getRandom(0, greenCardsSet.length);
+        secondStageSet.push(greenCardsData[green]);
+        greenCardsSet.splice(green, 1);
+
     }
 
     for (let i = 0; i < secondStageSetRule.blueCards; i++) {
-        secondStageSet.push(blueCardsData[getRandom(0, blueCardsData.length)]);
+        let blue = getRandom(0, blueCardsSet.length);
+        secondStageSet.push(blueCardsSet[blue]);
+        blueCardsSet.splice(blue, 1);
+
     }
     for (let i = 0; i < secondStageSetRule.brownCards; i++) {
-        secondStageSet.push(brownCardsData[getRandom(0, brownCardsData.length)]);
+        let brown = getRandom(0, brownCardsSet.length);
+        secondStageSet.push(brownCardsData[brown]);
+        brownCardsSet.splice(brown, 1);
     }
 
     // собираем набор третьего этапа
 
     for (let i = 0; i < thirdStageSetRule.greenCards; i++) {
-        thirdStageSet.push(greenCardsData[getRandom(0, greenCardsData.length)]);
+        let green = getRandom(0, greenCardsSet.length);
+        thirdStageSet.push(greenCardsData[green]);
+        greenCardsSet.splice(green, 1);
+
     }
 
     for (let i = 0; i < thirdStageSetRule.blueCards; i++) {
-        thirdStageSet.push(blueCardsData[getRandom(0, blueCardsData.length)]);
+        let blue = getRandom(0, blueCardsSet.length);
+        thirdStageSet.push(blueCardsSet[blue]);
+        blueCardsSet.splice(blue, 1);
     }
     for (let i = 0; i < thirdStageSetRule.brownCards; i++) {
-        thirdStageSet.push(brownCardsData[getRandom(0, brownCardsData.length)]);
+        let brown = getRandom(0, brownCardsSet.length);
+        thirdStageSet.push(brownCardsData[brown]);
+        brownCardsSet.splice(brown, 1);
     }
 
     console.log('наборы карт по этапам:\n', firstStageSet, secondStageSet, thirdStageSet);
