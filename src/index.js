@@ -6,15 +6,14 @@ import ancients from './ancients.js'
 
 
 
-alert(`Привет!:) колода работает только для первого древнего Азатота и для среднего уровня сложности. Чтоб посмотреть карты нажми на 'замешать карты' и потом на рубашку колоды. Набор карт можно посмотреть в консоли`)
+//alert(`Привет!:) колода работает только для первого древнего Азатота и для среднего уровня сложности. Чтоб посмотреть карты нажми на 'замешать карты' и потом на рубашку колоды. Набор карт можно посмотреть в консоли`)
 const ancientsList = document.querySelector('.ancients-wrapper');
 
 const difficulty = document.querySelector('.difficulty-wrapper');
 const cardsShuffle = document.querySelector('.cards-shuffle');
 
 let selectedElement;
-let ancient = 'azathoth';
-//console.log(ancient);
+let ancient;
 
 
 function highlight(element, classname) {
@@ -30,26 +29,34 @@ function highlight(element, classname) {
 
 difficulty.addEventListener('click',  function(event) {
     let target = event.target;
+    console.log(target.id);
     highlight(target, 'active-difficulty');
 });
 
+
 ancientsList.addEventListener('click', function(event) {
     let target = event.target;
-    ancient = event.target.id;
+    ancient = target.id;
     console.log (ancient);
     highlight(target, 'active-ancient');
 });
 
-//console.log(ancient);
+//выбираем древнего
+document.querySelectorAll('.ancient-card').forEach(el => {
+    el.addEventListener('click', function() {
+        getId(el);
+    })
+});
+function getId(el) {
+    let ancient = el.id;
+    return ancient;
+}
 
-//ищем id активного элемента по клику
 
 
 function getRandom(min, max) {
     return Math.floor(Math.random() * (max-min)) + min;
 }
-
-
 
 
 let deck;
@@ -62,6 +69,7 @@ cardsShuffle.addEventListener('click', function() {
 });
 
 function setDeck (ancient) {
+    console.log(ancient);
     let blueCardsSet = blueCardsData;
     let greenCardsSet = greenCardsData;
     let brownCardsSet = brownCardsData;
