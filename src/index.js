@@ -6,7 +6,7 @@ import ancients from './ancients.js'
 
 
 
-alert(`Привет!:) колода работает только для первого древнего Азатота и для среднего уровня сложности. Чтоб посмотреть карты нажми на 'замешать карты' и потом на рубашку колоды. Набор карт можно посмотреть в консоли`)
+//alert(`Привет!:) колода работает только для первого древнего Азатота и для среднего уровня сложности. Чтоб посмотреть карты нажми на 'замешать карты' и потом на рубашку колоды. Набор карт можно посмотреть в консоли`)
 const ancientsList = document.querySelector('.ancients-wrapper');
 
 const difficulty = document.querySelector('.difficulty-wrapper');
@@ -84,10 +84,10 @@ function setDeck (ancient) {
     for (let i = 0; i < firstStageSetRule.greenCards; i++) {
         let green = getRandom(0, greenCardsSet.length);
         firstStageSet.push(greenCardsSet[green]);
-
         greenCardsSet = greenCardsSet.filter(e => e !== greenCardsSet[green])
         //greenCardsSet.splice(green, 1);
     }
+
 
     for (let i = 0; i < firstStageSetRule.blueCards; i++) {
         let blue = getRandom(0, blueCardsSet.length);
@@ -103,6 +103,7 @@ function setDeck (ancient) {
         //brownCardsSet.splice(brown, 1);
     }
 
+    shuffle(firstStageSet);
     // собираем набор второго этапа
     for (let i = 0; i < secondStageSetRule.greenCards; i++) {
         let green = getRandom(0, greenCardsSet.length);
@@ -125,6 +126,8 @@ function setDeck (ancient) {
         brownCardsSet = brownCardsSet.filter(e => e !== brownCardsSet[brown]);
         //brownCardsSet.splice(brown, 1);
     }
+
+    shuffle(secondStageSet);
 
     // собираем набор третьего этапа
 
@@ -149,6 +152,9 @@ function setDeck (ancient) {
         //brownCardsSet.splice(brown, 1);
     }
 
+
+    shuffle(thirdStageSet);
+
     console.log('наборы карт по этапам:\n', firstStageSet, secondStageSet, thirdStageSet);
 
     deck = [...thirdStageSet, ...secondStageSet, ...firstStageSet] // собираем в обратном порядке, чтоб использовать pop для выкладки карт
@@ -157,6 +163,12 @@ function setDeck (ancient) {
     return deck;
 }
 
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
 const mythCardsDeck = document.querySelector('.myth-cards-deck');
 const mythCardFace = document.querySelector('.myth-cards-face');
 
