@@ -5,8 +5,7 @@ import ancientsData from './ancients-cards.js'
 import ancients from './ancients.js'
 
 
-
-//alert(`Привет!:) колода работает только для первого древнего Азатота и для среднего уровня сложности. Чтоб посмотреть карты нажми на 'замешать карты' и потом на рубашку колоды. Набор карт можно посмотреть в консоли`)
+alert(`Привет!:) колода работает только для среднего уровня сложности. Чтоб посмотреть карты. выбери древнего и нажми на 'замешать карты' и потом на рубашку колоды. Набор карт можно посмотреть в консоли`)
 const ancientsList = document.querySelector('.ancients-wrapper');
 
 const difficulty = document.querySelector('.difficulty-wrapper');
@@ -37,7 +36,6 @@ difficulty.addEventListener('click',  function(event) {
 ancientsList.addEventListener('click', function(event) {
     let target = event.target;
     ancient = target.id;
-    console.log (ancient);
     highlight(target, 'active-ancient');
 });
 
