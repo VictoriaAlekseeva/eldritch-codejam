@@ -13,7 +13,12 @@ const cardsShuffle = document.querySelector('.cards-shuffle');
 
 let selectedElement;
 let ancient;
+let level;
+let deck;
 
+let blueCardsSet = blueCardsData;
+let greenCardsSet = greenCardsData;
+let brownCardsSet = brownCardsData;
 
 function highlight(element, classname) {
     if (selectedElement) {
@@ -28,7 +33,6 @@ function highlight(element, classname) {
 
 difficulty.addEventListener('click',  function(event) {
     let target = event.target;
-    console.log(target.id);
     highlight(target, 'active-difficulty');
 });
 
@@ -42,12 +46,22 @@ ancientsList.addEventListener('click', function(event) {
 //выбираем древнего
 document.querySelectorAll('.ancient-card').forEach(el => {
     el.addEventListener('click', function() {
-        getId(el);
+        getAncientId(el);
     })
 });
-function getId(el) {
-    let ancient = el.id;
+function getAncientId(el) {
+     ancient = el.id;
     return ancient;
+}
+//выбираем сложность
+document.querySelectorAll('.difficulty').forEach(el => {
+    el.addEventListener('click', function() {
+        getLevelId(el);
+    })
+});
+function getLevelId(el) {
+    let level = el.id;
+    return level;
 }
 
 
@@ -56,21 +70,62 @@ function getRandom(min, max) {
     return Math.floor(Math.random() * (max-min)) + min;
 }
 
-
-let deck;
-
-
 cardsShuffle.addEventListener('click', function() {
     setDeck(ancient);
     mythCardFace.classList.remove('myth-card-open');
 
 });
 
+function setDeckSets (level, cardSet) {
+
+    if (level == 'very-easy') {
+        cardSet = cardSet.filter(a => ((a.difficulty == "easy") || (a.difficulty == "normal")));
+        // greenCardsSet = greenCardsData.filter(a => ((a.difficulty == "easy") || (a.difficulty == "normal")));
+        // brownCardsSet = brownCardsData.filter(a => ((a.difficulty == "easy") || (a.difficulty == "normal")))
+    }
+
+    if (level == 'easy') {
+        cardSet = cardSet.filter(a => a.difficulty !== 'hard');
+        // greenCardsSet = greenCardsData.filter(a => a.difficulty !== 'hard');
+        // brownCardsSet = brownCardsData.filter(a => a.difficulty !== 'hard');
+    }
+
+    if (level == 'normal') {
+        cardSet = cardSet;
+        // greenCardsSet = greenCardsData;
+        // brownCardsSet = brownCardsData;
+    }
+
+    if (level == 'high') {
+        cardSet = cardSet.filter(a => a.difficulty !== 'easy');
+        // greenCardsSet = greenCardsData.filter(a => a.difficulty !== 'easy');
+        // brownCardsSet = brownCardsData.filter(a => a.difficulty !== 'easy');
+    }
+
+    if (level == 'very-high') {
+        cardSet = cardSet.filter(a => ((a.difficulty == "hard") || (a.difficulty == "normal")));
+        // greenCardsSet = greenCardsData.filter(a => ((a.difficulty == "hard") || (a.difficulty == "normal")));
+        // brownCardsSet = brownCardsData.filter(a => ((a.difficulty == "hard") || (a.difficulty == "normal")))
+
+    }
+
+    return cardSet;
+};
+
+
+
 function setDeck (ancient) {
     console.log(ancient);
+
+
+    // blueCardsSet = setDeckSets(level, blueCardsSet);
+    // console.log (blueCardsSet)
+    // greenCardsSet = setDeckSets(level, greenCardsSet);
+    // brownCardsSet = setDeckSets(level, brownCardsSet);
     let blueCardsSet = blueCardsData;
     let greenCardsSet = greenCardsData;
     let brownCardsSet = brownCardsData;
+
     let firstStageSet = [];
     let secondStageSet = [];
     let thirdStageSet = [];
@@ -179,14 +234,16 @@ const mythCardsDeck = document.querySelector('.myth-cards-deck');
 const mythCardFace = document.querySelector('.myth-cards-face');
 
 mythCardsDeck.addEventListener('click', function() {
+    if (deck.length == 0) {
+        mythCardFace.classList.remove('myth-card-open');
+    } else {
     mythCardFace.classList.add('myth-card-open');
     let card = deck.pop();
     console.log(card);
     let imgLink = `./assets/MythicCards/${card.color}/${card.id}.png`
     document.getElementById('card-face').src = imgLink;
-    if (deck.length == 0) {
-        mythCardFace.classList.remove('myth-card-open');
     }
+
 });
 
 
